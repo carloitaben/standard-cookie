@@ -7,5 +7,5 @@ import { themeCookieOptions } from "./cookies"
 export async function setThemeCookie(
   value: z.infer<typeof themeCookieOptions.schema>
 ) {
-  await setCookie(themeCookieOptions, value)
+  await setCookie(themeCookieOptions, value, {})
 }

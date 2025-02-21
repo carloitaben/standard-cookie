@@ -1,9 +1,14 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec"
-import type { CookieOptions } from "@standard-cookie/core"
+import type {
+  CookieOptions,
+  CookieSerializeOptions,
+} from "@standard-cookie/core"
 import {
   decode,
+  deleteDocumentCookie,
   encode,
   getDocumentCookie,
+  parse,
   setDocumentCookie,
 } from "@standard-cookie/core"
 
@@ -24,15 +29,40 @@ export async function getCookie<
   return decode(cookie.schema, cookieValue)
 }
 
-// TODO: should return the parsed output here to avoid setting cookies and then reading them again to get the parsed value
 export async function setCookie<
   Name extends string,
   Schema extends StandardSchemaV1
 >(
   cookie: CookieOptions<Name, Schema>,
   value: StandardSchemaV1.InferInput<Schema>,
-  options?: unknown
+  options?: CookieSerializeOptions
 ): Promise<void> {
-  const serialized = encode(cookie.schema, value)
-  setDocumentCookie(cookie.name, serialized)
+  const output = parse(cookie.schema, value)
+  const string = encode(output)
+
+  setDocumentCookie(cookie.name, string, {
+    ...cookie.options,
+    ...options,
+  })
+}
+
+export async function deleteCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(
+  cookie: CookieOptions<Name, Schema>,
+  options?: CookieSerializeOptions
+): Promise<void> {
+  deleteDocumentCookie(cookie.name, {
+    ...cookie.options,
+    ...options,
+  })
+}
+
+export async function hasCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
+  const value = getCookie(cookie)
+  return typeof value !== "undefined"
 }

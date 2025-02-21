@@ -1,11 +1,11 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec"
 import type { CookieSerializeOptions } from "cookie-es"
-import { parse, serialize } from "cookie-es"
+import { parse as parseCookie, serialize as serializeCookie } from "cookie-es"
 
 export { CookieSerializeOptions }
 
 export function getDocumentCookie(name: string): string | undefined {
-  return parse(document.cookie)[name]
+  return parseCookie(document.cookie)[name]
 }
 
 export function setDocumentCookie(
@@ -13,7 +13,7 @@ export function setDocumentCookie(
   value: string,
   options?: CookieSerializeOptions
 ): void {
-  document.cookie = serialize(name, value, {
+  document.cookie = serializeCookie(name, value, {
     path: "/",
     ...options,
   })
@@ -29,11 +29,11 @@ export function deleteDocumentCookie(
   })
 }
 
-export function validate<Schema extends StandardSchemaV1>(
+export function safeParse<Schema extends StandardSchemaV1>(
   schema: Schema,
   input: StandardSchemaV1.InferInput<Schema>
 ) {
-  let result = schema["~standard"].validate(input)
+  const result = schema["~standard"].validate(input)
 
   if (result instanceof Promise) {
     throw new TypeError("Schema validation must be synchronous")
@@ -42,17 +42,21 @@ export function validate<Schema extends StandardSchemaV1>(
   return result as StandardSchemaV1.Result<Schema>
 }
 
-export function encode<Schema extends StandardSchemaV1>(
+export function parse<Schema extends StandardSchemaV1>(
   schema: Schema,
   input: StandardSchemaV1.InferInput<Schema>
-): string {
-  const output = validate(schema, input)
+) {
+  const result = safeParse(schema, input)
 
-  if (output.issues) {
+  if (result.issues) {
     throw Error("TODO: show errors here")
   }
 
-  return JSON.stringify(output.value)
+  return result.value as StandardSchemaV1.InferOutput<Schema>
+}
+
+export function encode(value: unknown): string {
+  return JSON.stringify(value)
 }
 
 export function decode<Schema extends StandardSchemaV1>(
@@ -61,7 +65,7 @@ export function decode<Schema extends StandardSchemaV1>(
 ): StandardSchemaV1.InferOutput<Schema> | undefined {
   try {
     const deserialized = JSON.parse(input)
-    const output = validate(schema, deserialized)
+    const output = safeParse(schema, deserialized)
     return output.issues ? undefined : output.value
   } catch (error) {
     if (error instanceof TypeError) {
