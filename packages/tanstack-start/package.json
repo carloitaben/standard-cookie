@@ -1,0 +1,30 @@
+{
+  "name": "@standard-cookie/tanstack-start",
+  "type": "module",
+  "version": "0.0.0",
+  "private": false,
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "node": "./src/server.ts",
+        "default": "./src/client.ts"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@standard-cookie/core": "workspace:*",
+    "@tanstack/start": ">=1.109"
+  },
+  "devDependencies": {
+    "@tanstack/start": "^1.109.2"
+  }
+}
