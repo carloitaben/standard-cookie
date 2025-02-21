@@ -1,0 +1,23 @@
+{
+  "name": "@standard-cookie/next",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    "react-server": "./src/server.ts",
+    "default": "./src/client.ts"
+  },
+  "publishConfig": {
+    "react-server": "./dist/server.js",
+    "default": "./dist/client.js"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@standard-cookie/core": "workspace:*",
+    "next": ">=15"
+  },
+  "devDependencies": {
+    "next": "^15.1.7"
+  }
+}

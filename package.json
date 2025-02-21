@@ -1,0 +1,13 @@
+{
+  "name": "standard-cookie",
+  "description": "",
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.14.2",
+  "license": "MIT",
+  "private": true,
+  "author": "Carlo Domínguez",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carloitaben/standard-cookie"
+  }
+}
