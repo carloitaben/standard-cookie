@@ -36,13 +36,13 @@
     }
   },
   "dependencies": {
-    "@standard-cookie/core": "workspace:*",
     "@standard-schema/spec": "^1.0.0"
   },
   "peerDependencies": {
     "next": ">=15"
   },
   "devDependencies": {
+    "@standard-cookie/core": "workspace:*",
     "next": "^15.1.7",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
