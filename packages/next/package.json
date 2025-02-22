@@ -2,22 +2,49 @@
   "name": "@standard-cookie/next",
   "version": "0.0.0",
   "private": false,
+  "sideEffects": false,
+  "author": {
+    "name": "Carlo Domínguez",
+    "email": "hello@carlo.works",
+    "url": "https://carlo.works"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carloitaben/standard-cookie"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "exports": {
-    "react-server": "./src/server.ts",
-    "default": "./src/client.ts"
+    ".": {
+      "react-server": "./src/server.ts",
+      "default": "./src/client.ts"
+    }
   },
   "publishConfig": {
-    "react-server": "./dist/server.js",
-    "default": "./dist/client.js"
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/server.d.ts",
+      "react-server": "./dist/server.js",
+      "default": "./dist/client.js"
+    }
   },
   "dependencies": {
+    "@standard-cookie/core": "workspace:*",
     "@standard-schema/spec": "^1.0.0"
   },
   "peerDependencies": {
-    "@standard-cookie/core": "workspace:*",
     "next": ">=15"
   },
   "devDependencies": {
-    "next": "^15.1.7"
+    "next": "^15.1.7",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
   }
 }

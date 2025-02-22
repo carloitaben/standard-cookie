@@ -1,8 +1,7 @@
 {
   "name": "example-tanstack-start",
-  "private": true,
-  "sideEffects": false,
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",

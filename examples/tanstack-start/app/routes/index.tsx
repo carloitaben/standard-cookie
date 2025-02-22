@@ -1,5 +1,5 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { createIsomorphicFn, createServerFn } from "@tanstack/start"
+import { createServerFn } from "@tanstack/start"
 import {
   cookieOptions,
   getCookie,

@@ -2,12 +2,40 @@
   "name": "@standard-cookie/core",
   "version": "0.0.0",
   "private": false,
-  "main": "./src/index.ts",
+  "sideEffects": false,
+  "author": {
+    "name": "Carlo Domínguez",
+    "email": "hello@carlo.works",
+    "url": "https://carlo.works"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carloitaben/standard-cookie"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "./package.json": "./package.json",
+    ".": {
+      "default": "./dist/client.js"
+    }
+  },
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "cookie-es": "^1.2.2"
   },
   "devDependencies": {
+    "tsup": "^8.3.6",
     "typescript": "^5.7.3"
   }
 }

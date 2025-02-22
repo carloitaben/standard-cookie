@@ -3,28 +3,51 @@
   "type": "module",
   "version": "0.0.0",
   "private": false,
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "sideEffects": false,
+  "author": {
+    "name": "Carlo Domínguez",
+    "email": "hello@carlo.works",
+    "url": "https://carlo.works"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carloitaben/standard-cookie"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "exports": {
     ".": {
-      "import": {
-        "node": "./src/server.ts",
-        "default": "./src/client.ts"
-      }
-    },
-    "./package.json": "./package.json"
+      "node": "./src/server.ts",
+      "react-server": "./src/server.ts",
+      "default": "./src/client.ts"
+    }
   },
   "publishConfig": {
-    "main": "./dist/index.js"
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/server.d.ts",
+      "node": "./dist/server.js",
+      "react-server": "./dist/server.js",
+      "default": "./dist/client.js"
+    }
   },
   "dependencies": {
+    "@standard-cookie/core": "workspace:*",
     "@standard-schema/spec": "^1.0.0"
   },
   "peerDependencies": {
-    "@standard-cookie/core": "workspace:*",
     "@tanstack/start": ">=1.109"
   },
   "devDependencies": {
-    "@tanstack/start": "^1.109.2"
+    "@tanstack/start": "^1.109.2",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
   }
 }

@@ -14,18 +14,14 @@ export default function Client() {
         <div>Client</div>
         <button
           onClick={() => {
-            startTransition(async () => {
-              await setCookie(themeCookieOptions, "light")
-            })
+            setCookie(themeCookieOptions, "light")
           }}
         >
           Light mode
         </button>
         <button
           onClick={() => {
-            startTransition(async () => {
-              await setCookie(themeCookieOptions, "dark")
-            })
+            setCookie(themeCookieOptions, "dark")
           }}
         >
           Dark mode
