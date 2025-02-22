@@ -30,12 +30,14 @@
     }
   },
   "publishConfig": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/server.d.ts",
-      "node": "./dist/server.js",
-      "react-server": "./dist/server.js",
-      "default": "./dist/client.js"
+    "exports": {
+      "./package.json": "./package.json",
+      ".": {
+        "types": "./dist/server.d.ts",
+        "node": "./dist/server.js",
+        "react-server": "./dist/server.js",
+        "default": "./dist/client.js"
+      }
     }
   },
   "dependencies": {

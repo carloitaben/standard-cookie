@@ -25,9 +25,11 @@
     ".": "./src/index.ts"
   },
   "publishConfig": {
-    "./package.json": "./package.json",
-    ".": {
-      "default": "./dist/client.js"
+    "exports": {
+      "./package.json": "./package.json",
+      ".": {
+        "default": "./dist/client.js"
+      }
     }
   },
   "dependencies": {
