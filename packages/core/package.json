@@ -1,6 +1,6 @@
 {
   "name": "@standard-cookie/core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
   "sideEffects": false,
   "author": {
