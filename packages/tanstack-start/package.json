@@ -1,7 +1,7 @@
 {
   "name": "@standard-cookie/tanstack-start",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "sideEffects": false,
   "author": {
@@ -41,13 +41,13 @@
     }
   },
   "dependencies": {
+    "@standard-cookie/core": "workspace:*",
     "@standard-schema/spec": "^1.0.0"
   },
   "peerDependencies": {
     "@tanstack/start": ">=1.109"
   },
   "devDependencies": {
-    "@standard-cookie/core": "workspace:*",
     "@tanstack/start": "^1.109.2",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
