@@ -32,27 +32,27 @@ export function deleteDocumentCookie(
 export function safeParse<Schema extends StandardSchemaV1>(
   schema: Schema,
   input: StandardSchemaV1.InferInput<Schema>
-) {
+): StandardSchemaV1.Result<Schema> {
   const result = schema["~standard"].validate(input)
 
   if (result instanceof Promise) {
     throw new TypeError("Schema validation must be synchronous")
   }
 
-  return result as StandardSchemaV1.Result<Schema>
+  return result as any
 }
 
 export function parse<Schema extends StandardSchemaV1>(
   schema: Schema,
   input: StandardSchemaV1.InferInput<Schema>
-) {
+): StandardSchemaV1.InferOutput<Schema> {
   const result = safeParse(schema, input)
 
   if (result.issues) {
     throw Error("TODO: show errors here")
   }
 
-  return result.value as StandardSchemaV1.InferOutput<Schema>
+  return result.value as any
 }
 
 export function encode(value: unknown): string {
