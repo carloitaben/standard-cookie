@@ -107,13 +107,13 @@ importers:
 
   packages/next:
     dependencies:
+      '@standard-cookie/core':
+        specifier: workspace:*
+        version: link:../core
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.0.0
     devDependencies:
-      '@standard-cookie/core':
-        specifier: workspace:*
-        version: link:../core
       next:
         specifier: ^15.1.7
         version: 15.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -126,13 +126,13 @@ importers:
 
   packages/tanstack-start:
     dependencies:
+      '@standard-cookie/core':
+        specifier: workspace:*
+        version: link:../core
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.0.0
     devDependencies:
-      '@standard-cookie/core':
-        specifier: workspace:*
-        version: link:../core
       '@tanstack/start':
         specifier: ^1.109.2
         version: 1.109.2(@types/node@22.13.4)(db0@0.2.4)(ioredis@5.5.0)(jiti@2.4.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.7.3)(vite@6.1.1(@types/node@22.13.4)(jiti@2.4.2)(terser@5.39.0)(tsx@4.19.3))
