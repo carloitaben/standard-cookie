@@ -1,6 +1,7 @@
 {
   "name": "@standard-cookie/next",
   "version": "0.0.3",
+  "type": "module",
   "private": false,
   "sideEffects": false,
   "author": {

@@ -24,6 +24,14 @@ export async function getCookie<
   return decode(cookie.schema, cookieValue)
 }
 
+export async function hasCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
+  const store = await cookies()
+  return store.has(cookie.name)
+}
+
 export async function setCookie<
   Name extends string,
   Schema extends StandardSchemaV1
@@ -58,12 +66,4 @@ export async function deleteCookie<
     ...cookie.options,
     ...options,
   })
-}
-
-export async function hasCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
->(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
-  const store = await cookies()
-  return store.has(cookie.name)
 }

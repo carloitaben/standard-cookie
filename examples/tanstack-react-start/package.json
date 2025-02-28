@@ -1,16 +1,17 @@
 {
-  "name": "example-tanstack-start",
+  "name": "example-tanstack-react-start",
   "type": "module",
   "private": true,
+  "sideEffects": false,
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start"
   },
   "dependencies": {
-    "@standard-cookie/tanstack-start": "workspace:*",
-    "@tanstack/react-router": "^1.109.2",
-    "@tanstack/start": "^1.109.2",
+    "@standard-cookie/tanstack": "workspace:*",
+    "@tanstack/react-router": "^1.112.0",
+    "@tanstack/react-start": "^1.112.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "vinxi": "0.5.3",

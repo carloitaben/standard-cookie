@@ -1,10 +1,6 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { createServerFn } from "@tanstack/start"
-import {
-  cookieOptions,
-  getCookie,
-  setCookie,
-} from "@standard-cookie/tanstack-start"
+import { createFileRoute } from "@tanstack/react-router"
+import { createServerFn } from "@tanstack/react-start"
+import { cookieOptions, getCookie, setCookie } from "@standard-cookie/tanstack"
 import { z } from "zod"
 
 const themeCookieOptions = cookieOptions({
@@ -33,7 +29,6 @@ export const Route = createFileRoute("/")({
 })
 
 function Home() {
-  const router = useRouter()
   const cookie = Route.useLoaderData()
 
   return (

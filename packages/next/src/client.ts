@@ -29,6 +29,14 @@ export async function getCookie<
   return decode(cookie.schema, cookieValue)
 }
 
+export async function hasCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
+  const value = getCookie(cookie)
+  return typeof value !== "undefined"
+}
+
 export async function setCookie<
   Name extends string,
   Schema extends StandardSchemaV1
@@ -57,12 +65,4 @@ export async function deleteCookie<
     ...cookie.options,
     ...options,
   })
-}
-
-export async function hasCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
->(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
-  const value = getCookie(cookie)
-  return typeof value !== "undefined"
 }

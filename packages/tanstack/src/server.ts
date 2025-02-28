@@ -1,18 +1,17 @@
-import { createIsomorphicFn, serverOnly, clientOnly } from "@tanstack/start"
 import type { StandardSchemaV1 } from "@standard-schema/spec"
 import type {
   CookieOptions,
   CookieSerializeOptions,
 } from "@standard-cookie/core"
-import { decode, encode, getDocumentCookie, parse } from "@standard-cookie/core"
-import type { H3Event } from "@tanstack/start/server"
+import { decode, encode, parse } from "@standard-cookie/core"
+import type { H3Event } from "@tanstack/react-start/server"
 import {
   getCookie as getServerCookie,
   setCookie as setServerCookie,
   deleteCookie as deleteServerCookie,
-} from "@tanstack/start/server"
+} from "@tanstack/react-start/server"
 
-export * from "./shared.ts"
+export * from "./shared"
 
 export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
   cookie: CookieOptions<Name, Schema>
@@ -44,6 +43,25 @@ export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
     args.length === 2 ? args[1].schema : args[0].schema,
     cookieValue
   )
+}
+
+export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
+  cookie: CookieOptions<Name, Schema>
+): boolean
+
+export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
+  event: H3Event,
+  cookie: CookieOptions<Name, Schema>
+): boolean
+
+export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
+  ...args:
+    | [CookieOptions<Name, Schema>]
+    | [H3Event, CookieOptions<Name, Schema>]
+): boolean {
+  return args.length === 2
+    ? !!getCookie(args[0], args[1])
+    : !!getCookie(args[0])
 }
 
 export function setCookie<Name extends string, Schema extends StandardSchemaV1>(
@@ -81,4 +99,32 @@ export function setCookie(...args: any): any {
   })
 
   return output
+}
+
+export function deleteCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(cookie: CookieOptions<Name, Schema>, options?: CookieSerializeOptions): void
+
+export function deleteCookie<
+  Name extends string,
+  Schema extends StandardSchemaV1
+>(
+  event: H3Event,
+  cookie: CookieOptions<Name, Schema>,
+  options?: CookieSerializeOptions
+): void
+
+export function deleteCookie(...args: any): void {
+  if (args.length > 3) {
+    deleteServerCookie(args[0], args[1].name, {
+      ...args[1].options,
+      ...args[2],
+    })
+  } else {
+    deleteServerCookie(args[0].name, {
+      ...args[0].options,
+      ...args[1],
+    })
+  }
 }

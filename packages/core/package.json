@@ -23,7 +23,8 @@
     "README.md"
   ],
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./config/*": "./config/*"
   },
   "publishConfig": {
     "main": "./dist/index.cjs",
