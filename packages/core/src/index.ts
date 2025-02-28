@@ -2,7 +2,7 @@ import type { StandardSchemaV1 } from "@standard-schema/spec"
 import type { CookieSerializeOptions } from "cookie-es"
 import { parse as parseCookie, serialize as serializeCookie } from "cookie-es"
 
-export { CookieSerializeOptions }
+export type { CookieSerializeOptions }
 
 export function getDocumentCookie(name: string): string | undefined {
   return parseCookie(document.cookie)[name]
