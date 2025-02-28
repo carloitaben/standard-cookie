@@ -1,16 +1,4 @@
 {
-  "compilerOptions": {
-    "allowImportingTsExtensions": true,
-    "declaration": true,
-    "exactOptionalPropertyTypes": true,
-    "isolatedDeclarations": true,
-    "lib": ["DOM", "ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext"
-  },
-  "include": ["src"]
+  "extends": "./config/typescript.json",
+  "include": ["src/**/*"]
 }
