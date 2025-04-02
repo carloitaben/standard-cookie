@@ -9,10 +9,11 @@ import { cookies } from "next/headers"
 export * from "./shared"
 
 export async function getCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>
+  cookie: CookieOptions<Schema, Name, Encoded>
 ): Promise<StandardSchemaV1.InferOutput<Schema> | undefined> {
   const store = await cookies()
   const cookieValue = store.get(cookie.name)?.value
@@ -21,27 +22,29 @@ export async function getCookie<
     return undefined
   }
 
-  return decode(cookie.schema, cookieValue)
+  return decode(cookie, cookieValue)
 }
 
 export async function hasCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
->(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(cookie: CookieOptions<Schema, Name, Encoded>): Promise<boolean> {
   const store = await cookies()
   return store.has(cookie.name)
 }
 
 export async function setCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   value: StandardSchemaV1.InferInput<Schema>,
   options?: CookieSerializeOptions
 ): Promise<StandardSchemaV1.InferOutput<Schema>> {
-  const output = parse(cookie.schema, value)
-  const string = encode(output)
+  const output = parse(cookie, value)
+  const string = encode(cookie, output)
   const store = await cookies()
 
   store.set(cookie.name, string, {
@@ -53,10 +56,11 @@ export async function setCookie<
 }
 
 export async function deleteCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   options?: CookieSerializeOptions
 ): Promise<void> {
   const store = await cookies()

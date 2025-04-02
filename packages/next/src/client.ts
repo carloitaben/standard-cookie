@@ -15,10 +15,11 @@ import {
 export * from "./shared"
 
 export async function getCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>
+  cookie: CookieOptions<Schema, Name, Encoded>
 ): Promise<StandardSchemaV1.InferOutput<Schema> | undefined> {
   const cookieValue = getDocumentCookie(cookie.name)
 
@@ -26,27 +27,29 @@ export async function getCookie<
     return undefined
   }
 
-  return decode(cookie.schema, cookieValue)
+  return decode(cookie, cookieValue)
 }
 
 export async function hasCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
->(cookie: CookieOptions<Name, Schema>): Promise<boolean> {
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(cookie: CookieOptions<Schema, Name, Encoded>): Promise<boolean> {
   const value = getCookie(cookie)
   return typeof value !== "undefined"
 }
 
 export async function setCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   value: StandardSchemaV1.InferInput<Schema>,
   options?: CookieSerializeOptions
 ): Promise<void> {
-  const output = parse(cookie.schema, value)
-  const string = encode(output)
+  const output = parse(cookie, value)
+  const string = encode(cookie, output)
 
   setDocumentCookie(cookie.name, string, {
     ...cookie.options,
@@ -55,10 +58,11 @@ export async function setCookie<
 }
 
 export async function deleteCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   options?: CookieSerializeOptions
 ): Promise<void> {
   deleteDocumentCookie(cookie.name, {

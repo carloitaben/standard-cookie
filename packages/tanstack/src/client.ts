@@ -15,19 +15,31 @@ import type { H3Event } from "@tanstack/react-start/server"
 
 export * from "./shared"
 
-export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
-  cookie: CookieOptions<Name, Schema>
+export function getCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
+  cookie: CookieOptions<Schema, Name, Encoded>
 ): StandardSchemaV1.InferOutput<Schema> | undefined
 
-export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
+export function getCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
   event: H3Event,
-  cookie: CookieOptions<Name, Schema>
+  cookie: CookieOptions<Schema, Name, Encoded>
 ): StandardSchemaV1.InferOutput<Schema> | undefined
 
-export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
+export function getCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
   ...args:
-    | [CookieOptions<Name, Schema>]
-    | [H3Event, CookieOptions<Name, Schema>]
+    | [CookieOptions<Schema, Name, Encoded>]
+    | [H3Event, CookieOptions<Schema, Name, Encoded>]
 ): StandardSchemaV1.InferOutput<Schema> | undefined {
   const cookieValue = getDocumentCookie(
     args.length === 1 ? args[0].name : args[1].name
@@ -37,38 +49,50 @@ export function getCookie<Name extends string, Schema extends StandardSchemaV1>(
     return undefined
   }
 
-  return decode(
-    args.length === 1 ? args[0].schema : args[1].schema,
-    cookieValue
-  )
+  return decode(args.length === 1 ? args[0] : args[1], cookieValue)
 }
 
-export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
-  cookie: CookieOptions<Name, Schema>
-): boolean
+export function hasCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(cookie: CookieOptions<Schema, Name, Encoded>): boolean
 
-export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
-  event: H3Event,
-  cookie: CookieOptions<Name, Schema>
-): boolean
+export function hasCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(event: H3Event, cookie: CookieOptions<Schema, Name, Encoded>): boolean
 
-export function hasCookie<Name extends string, Schema extends StandardSchemaV1>(
+export function hasCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
   ...args:
-    | [CookieOptions<Name, Schema>]
-    | [H3Event, CookieOptions<Name, Schema>]
+    | [CookieOptions<Schema, Name, Encoded>]
+    | [H3Event, CookieOptions<Schema, Name, Encoded>]
 ): boolean {
   return !!getDocumentCookie(args.length === 1 ? args[0].name : args[1].name)
 }
 
-export function setCookie<Name extends string, Schema extends StandardSchemaV1>(
-  cookie: CookieOptions<Name, Schema>,
+export function setCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
+  cookie: CookieOptions<Schema, Name, Encoded>,
   value: StandardSchemaV1.InferInput<Schema>,
   options?: CookieSerializeOptions
 ): StandardSchemaV1.InferOutput<Schema>
 
-export function setCookie<Name extends string, Schema extends StandardSchemaV1>(
+export function setCookie<
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
   event: H3Event,
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   value: StandardSchemaV1.InferInput<Schema>,
   options?: CookieSerializeOptions
 ): StandardSchemaV1.InferOutput<Schema>
@@ -78,8 +102,8 @@ export function setCookie(...args: any) {
   const value = args.length > 3 ? args[2] : args[1]
   const options = args.length > 3 ? args[3] : args[2]
 
-  const output = parse(cookie.schema, value)
-  const string = encode(output)
+  const output = parse(cookie, value)
+  const string = encode(cookie, output)
 
   setDocumentCookie(cookie.name, string, {
     ...cookie.options,
@@ -90,16 +114,21 @@ export function setCookie(...args: any) {
 }
 
 export function deleteCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
->(cookie: CookieOptions<Name, Schema>, options?: CookieSerializeOptions): void
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
+>(
+  cookie: CookieOptions<Schema, Name, Encoded>,
+  options?: CookieSerializeOptions
+): void
 
 export function deleteCookie<
-  Name extends string,
-  Schema extends StandardSchemaV1
+  Schema extends StandardSchemaV1,
+  Name extends string = string,
+  Encoded extends string = string
 >(
   event: H3Event,
-  cookie: CookieOptions<Name, Schema>,
+  cookie: CookieOptions<Schema, Name, Encoded>,
   options?: CookieSerializeOptions
 ): void
 
